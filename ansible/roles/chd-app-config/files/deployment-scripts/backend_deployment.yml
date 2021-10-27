@@ -2,7 +2,7 @@
   - name: Deploy EWF Backend artifact
     hosts: localhost
     gather_facts: true
-    collections: 
+    collections:
       - ch_collections.base
     vars:
       ansible_python_interpreter: /usr/local/bin/python3.6
@@ -10,7 +10,7 @@
       application_config_name: "chd-backend"
       home_dir: "/home/chd"
       directories:
-        - "DATA" 
+        - "DATA"
         - "MODULES"
         - "bcdbackend"
         - "chd3backend"
@@ -18,6 +18,13 @@
         - "conf"
       config_files:
         - "BEP"
+      cups_config_files:
+        - "cupsd"
+        - "printers"
+      cups_printer_descs:
+        - "avpcovlive"
+        - "avpinplive"
+        - "ccopies"
     roles:
       - { role: /root/roles/nfs_mounts }
       - name: ch_collections.base.cloudwatch_agent_config
@@ -34,13 +41,13 @@
         file:
           path: "/tmp/{{ application_name }}-{{ version }}"
           state: directory
-      
+
       - name: Unarchive the artifact into its own folder
         unarchive:
           remote_src: yes
           src: "/tmp/{{ application_name }}-{{ version }}.zip"
           dest: "/tmp/{{ application_name }}-{{ version }}"
-      
+
       - name: Copy folders to relevant locations
         vars:
           ansible_python_interpreter: /usr/bin/python2.6
@@ -52,7 +59,7 @@
           mode: preserve
           remote_src: yes
         loop: "{{ directories }}"
-      
+
       - name: Make sure config directory exists
         file:
           path: "{{ home_dir }}/config/My"
@@ -99,3 +106,35 @@
           name: "httpd"
           state: stopped
           enabled: no
+
+      - name: Download CUPS configuration files
+        aws_s3:
+          bucket: "{{ s3_bucket_configs }}"
+          object: "chl-{{ application_config_name }}-configs/{{ heritage_environment }}/cups/{{ item }}.conf"
+          dest: "/etc/cups/{{ item }}.conf"
+          mode: get
+        loop: "{{ cups_config_files }}"
+
+      - name: Set CUPS configuration file ownership and permissions
+        ansible.builtin.file:
+          path: "/etc/cups/{{ item }}.conf"
+          owner: root
+          group: lp
+          mode: 0640
+        loop: "{{ cups_config_files }}"
+
+      - name: Download CUPS printer descriptions
+        aws_s3:
+          bucket: "{{ s3_bucket_configs }}"
+          object: "chl-{{ application_config_name }}-configs/{{ heritage_environment }}/cups/{{ item }}.ppd"
+          dest: "/etc/cups/ppd/{{ item }}.ppd"
+          mode: get
+        loop: "{{ cups_printer_descs }}"
+
+      - name: Set CUPS printer description ownership and permissions
+        ansible.builtin.file:
+          path: "/etc/cups/ppd/{{ item }}.ppd"
+          owner: root
+          group: root
+          mode: 0644
+        loop: "{{ cups_printer_descs }}"
