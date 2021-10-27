@@ -127,7 +127,7 @@
         aws_s3:
           bucket: "{{ s3_bucket_configs }}"
           object: "chl-{{ application_config_name }}-configs/{{ heritage_environment }}/cups/{{ item }}.ppd"
-          dest: "/etc/cups/ppd/{{ item }}.ppd
+          dest: "/etc/cups/ppd/{{ item }}.ppd"
           mode: get
         loop: "{{ cups_printer_descs }}"
 
