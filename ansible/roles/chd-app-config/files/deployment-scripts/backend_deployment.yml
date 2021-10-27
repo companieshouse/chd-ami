@@ -136,5 +136,5 @@
           path: "/etc/cups/ppd/{{ item }}.ppd"
           owner: root
           group: root
-          mode: 0664
+          mode: 0644
         loop: "{{ cups_printer_descs }}"
