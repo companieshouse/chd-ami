@@ -111,7 +111,7 @@
         aws_s3:
           bucket: "{{ s3_bucket_configs }}"
           object: "chl-{{ application_config_name }}-configs/{{ heritage_environment }}/cups/{{ item }}.conf"
-          dest: "/etc/cups/{{ item }}.conf
+          dest: "/etc/cups/{{ item }}.conf"
           mode: get
         loop: "{{ cups_config_files }}"
 
