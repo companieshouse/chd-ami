@@ -20,6 +20,7 @@
         - "conf"
       config_files:
         - "BEP"
+        - "EWF"
       cups_config_files:
         - "cupsd"
         - "printers"
