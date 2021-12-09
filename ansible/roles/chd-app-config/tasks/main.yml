@@ -33,6 +33,15 @@
      name: libapreq2
      state: present
 
+- name: Enable crontab access for CHD user
+  lineinfile:
+    dest: "/etc/cron.allow"
+    line: "chd"
+    regexp: "^chd"
+
+- name: Disable password expiry for CHD user so it doesnt break cron
+  command: "chage -m 0 -M 99999 -I -1 -E -1 chd"
+
 - name: Copy config templates to relevant locations
   vars:
     ansible_python_interpreter: /usr/bin/python2.6
