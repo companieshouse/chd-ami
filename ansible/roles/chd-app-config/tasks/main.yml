@@ -75,8 +75,9 @@
   copy:
     src: "{{ item }}"
     dest: "{{ ansible_deploy_playbook_directory }}/{{ item | basename }}"
-    mode: 0755
+    mode: 0644
   loop:
+    - deployment-scripts/frontend_deployment.yml
     - deployment-scripts/backend_deployment.yml
 
 - name: Setup deployment playbook dependancies (1/2)
