@@ -11,7 +11,7 @@ LoadModule perl_module modules/mod_perl.so
 #PerlModule Apache2
 #PerlModule Apache::compat
 
-PerlRequire /etc/httpd/conf/ewf_startup.pl
+PerlRequire /etc/httpd/conf/chd_startup.pl
 PerlRequire /home/chd/MODULES/Apache/CacheControlHeadersOutputFilter.pm
 PerlTransHandler Apache::RewriteUri
 #PerlTransHandler Apache::StripSession2
