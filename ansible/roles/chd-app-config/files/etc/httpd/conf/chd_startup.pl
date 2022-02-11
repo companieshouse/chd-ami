@@ -1,4 +1,4 @@
-warn "Executing ewf_startup.pl...\n";
+warn "Executing chd_startup.pl...\n";
 sleep 1;
 
 # Extend @INC if needed
@@ -192,5 +192,5 @@ $ENV{NLS_LANG}   = "ENGLISH_UNITED KINGDOM.UTF8";
 $ENV{LC_ALL}     = "en_GB.UTF-8";
 $ENV{DBCONNECT_PING_RATE}=40;
 
-warn "ewf_startup.pl - done\n";
+warn "chd_startup.pl - done\n";
 1;
