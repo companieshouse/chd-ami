@@ -16,8 +16,7 @@
       config_files:
         - "CHD"
     roles:
-      - role: /root/roles/nfs_mounts
-        when: mounts is defined
+      - { role: /root/roles/nfs_mounts }
       - name: ch_collections.base.cloudwatch_agent_config
         when: cw_log_files is defined
     tasks:
