@@ -99,8 +99,8 @@
           mode: 0644
         loop:
           - /etc/httpd/conf/httpd.conf
-          - /etc/httpd/conf/startup.pl
-          - /etc/httpd/conf.d/perl.conf
+          - /etc/httpd/conf/chd_startup.pl
+          - /etc/httpd/conf.d/chd_perl.conf
 
       - name: Enable and start httpd to complete deployment
         ansible.builtin.service:
