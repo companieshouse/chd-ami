@@ -70,11 +70,15 @@
   with_items: "{{ postfix_net_config }}"
 
 - name: Install FTP server
+  vars:
+    ansible_python_interpreter: /usr/bin/python2.6
   yum:
     name: "{{ ftp_server_package }}"
     state: latest
 
 - name: Ensure FTP server is stopped and disabled
+  vars:
+    ansible_python_interpreter: /usr/bin/python2.6
   service:
     name: "{{ ftp_server_service }}"
     enabled: no
