@@ -71,12 +71,12 @@
 
 - name: Install FTP server
   yum:
-    name: "{{ ftp_server_package }}""
+    name: "{{ ftp_server_package }}"
     state: latest
 
 - name: Ensure FTP server is stopped and disabled
   service:
-    name: "{{ ftp_server_service }}""
+    name: "{{ ftp_server_service }}"
     enabled: no
     state: stopped
 
