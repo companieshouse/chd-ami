@@ -69,6 +69,17 @@
     regexp: "^{{ item.key }} ="
   with_items: "{{ postfix_net_config }}"
 
+- name: Install FTP server
+  yum:
+    name: "{{ ftp_server_package }}""
+    state: latest
+
+- name: Ensure FTP server is stopped and disabled
+  service:
+    name: "{{ ftp_server_service }}""
+    enabled: no
+    state: stopped
+
 - name: Copy deployment scripts to server for later use
   vars:
     ansible_python_interpreter: /usr/bin/python2.6
