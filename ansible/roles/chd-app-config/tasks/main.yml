@@ -33,14 +33,20 @@
      name: libapreq2
      state: present
 
-- name: Enable crontab access for CHD user
+- name: Enable crontab access for defined users
   lineinfile:
     dest: "/etc/cron.allow"
-    line: "chd"
-    regexp: "^chd"
+    line: "{{ item }}"
+    regexp: "^{{ item }}"
+  loop:
+    - chd
+    - bulkdata
 
-- name: Disable password expiry for CHD user so it doesnt break cron
-  command: "chage -m 0 -M 99999 -I -1 -E -1 chd"
+- name: Disable password expiry for defined users so it doesnt break cron
+  command: "chage -m 0 -M 99999 -I -1 -E -1 {{ item }}"
+  loop:
+    - chd
+    - bulkdata
 
 - name: Copy config templates to relevant locations
   vars:

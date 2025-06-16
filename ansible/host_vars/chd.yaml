@@ -8,6 +8,9 @@ users:
   - name: chd
     group: chlservices
     gid: 600
+  - name: bulkdata
+    group: bulkdata
+    gid: 601
     
 app_user_home_path: /home/chd
 
