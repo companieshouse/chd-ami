@@ -145,8 +145,8 @@
       - name: Download bulkdata scripts
         aws_s3:
           bucket: "{{ s3_bucket_configs }}"
-          object: "chl-{{ application_config_name }}-configs/{{ heritage_environment }}/bulkdata/bulkdata_scripts.tar.gz"
-          dest: "/tmp/bulkdata_scripts.tar.gz"
+          object: "chl-{{ application_config_name }}-configs/{{ heritage_environment }}/bulkdata/bulkdata_scripts.zip"
+          dest: "/tmp/bulkdata_scripts.zip"
           mode: get
 
       - name: Create bulkdata user scripts directory
@@ -160,7 +160,7 @@
       - name: Extract bulkdata scripts to bulkdata user scripts directory
         unarchive:
           remote_src: yes
-          src: "/tmp/bulkdata_scripts.tar.gz"
+          src: "/tmp/bulkdata_scripts.zip"
           dest: "/home/bulkdata/scripts"
           user: bulkdata
           group: bulkdata
