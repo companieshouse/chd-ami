@@ -162,6 +162,6 @@
           remote_src: yes
           src: "/tmp/bulkdata_scripts.zip"
           dest: "/home/bulkdata/scripts"
-          user: bulkdata
+          owner: bulkdata
           group: bulkdata
           mode: '0755'
