@@ -141,3 +141,27 @@
           group: root
           mode: 0644
         loop: "{{ cups_printer_descs }}"
+
+      - name: Download bulkdata scripts
+        aws_s3:
+          bucket: "{{ s3_bucket_configs }}"
+          object: "chl-{{ application_config_name }}-configs/{{ heritage_environment }}/bulkdata/bulkdata_scripts.tar.gz"
+          dest: "/tmp/bulkdata_scripts.tar.gz"
+          mode: get
+
+      - name: Create bulkdata user scripts directory
+        file:
+          path: "/home/bulkdata/scripts"
+          owner: bulkdata
+          group: bulkdata
+          mode: '0755'
+          state: directory
+
+      - name: Extract bulkdata scripts to bulkdata user scripts directory
+        unarchive:
+          remote_src: yes
+          src: "/tmp/bulkdata_scripts.tar.gz"
+          dest: "/home/bulkdata/scripts"
+          user: bulkdata
+          group: bulkdata
+          mode: '0755'
