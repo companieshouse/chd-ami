@@ -6,8 +6,7 @@ collections:
   - name: git@github.com:companieshouse/ansible-collections.git#/ch_collections/heritage_services
     type: git
     version: 0.1.69
-  - name: git@github.com:ansible-collections/ansible.posix
-    type: git
+  - name: ansible.posix
     version: 1.5.4
   - name: companieshouse.security
     version: 1.0.20
