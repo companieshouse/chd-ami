@@ -165,3 +165,12 @@
           owner: bulkdata
           group: bulkdata
           mode: '0755'
+          
+      - name: Create temp files symbolic link to nfs_mount
+        ansible.builtin.file:
+          src: /home/bulkdata/scripts/temp
+          dest: /mnt/nfs/batenvp1rep/users/bulkdata/temp
+          state: link
+          owner: bulkdata
+          group: bulkdata
+          force: yes
