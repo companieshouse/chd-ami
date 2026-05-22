@@ -165,3 +165,17 @@
           owner: bulkdata
           group: bulkdata
           mode: '0755'
+      - name: Check if destination bulk mount exists
+        ansible.builtin.state:
+          path: /mnt/nfs/batenvp1rep/users/bulkdata
+        register: bulkdata_mount
+
+      - name: Create temp files symbolic link to nfs_mount
+        ansible.builtin.file:
+          src: /home/bulkdata/scripts/temp
+          dest: /mnt/nfs/batenvp1rep/users/bulkdata/temp
+          state: link
+          owner: bulkdata
+          group: bulkdata
+          force: yes
+        when: bulkdata_mount.stat.exists and bulkdata_mount.stat.isdir
