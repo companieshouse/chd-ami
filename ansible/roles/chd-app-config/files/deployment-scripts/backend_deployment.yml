@@ -165,8 +165,9 @@
           owner: bulkdata
           group: bulkdata
           mode: '0755'
+
       - name: Check if destination bulk mount exists
-        ansible.builtin.state:
+        ansible.builtin.stat:
           path: /mnt/nfs/batenvp1rep/users/bulkdata
         register: bulkdata_mount
 
